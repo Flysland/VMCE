@@ -1,0 +1,3 @@
+[submodule "MCE"]
+	path = MCE
+	url = git@github.com:ABRIEL-Corentin/MCE.git
