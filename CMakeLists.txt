@@ -26,7 +26,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -Wextra -Werror -fPIC")
 # Include headers
 include_directories(${INCLUDE_PATH})
 
-# add_library(vmce SHARED ${SRC_FILES})
-add_executable(vmce ${SRC_FILES})
+add_library(vmce SHARED ${SRC_FILES})
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -g3")
+
+# Compile tests
+add_subdirectory(tests)
