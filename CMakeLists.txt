@@ -6,6 +6,7 @@ add_subdirectory(MCE)
 
 # Import Vulkan
 find_package(Vulkan REQUIRED)
+find_package(glfw3 3.3 REQUIRED)
 
 # Define target binary destination
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../lib)
@@ -30,7 +31,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -Wextra -Werror -fPIC")
 include_directories(${INCLUDE_PATH})
 
 add_library(vmce SHARED ${SRC_FILES})
-target_link_libraries(vmce Vulkan::Vulkan)
+target_link_libraries(vmce Vulkan::Vulkan glfw)
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -g3")
 

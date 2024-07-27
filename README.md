@@ -22,3 +22,4 @@ The compilation generate 2 folders:
 ## Requirements
 To compile the VMCE library you need to have theses libraries
 - [Vulkan](https://www.vulkan.org/)
+- [GLFW](https://www.glfw.org/)
