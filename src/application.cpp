@@ -33,6 +33,13 @@ namespace vmce
             func(instance, callback, allocator);
     }
 
+    Application::Application()
+        : _window(nullptr)
+        , _instance()
+        , _callback()
+        , _physical_device(VK_NULL_HANDLE)
+    { }
+
     void Application::run()
     {
         initWindow();
@@ -68,6 +75,7 @@ namespace vmce
     {
         createInstance();
         setupDebuggerMessenger();
+        pickPhysicalDevice();
     }
 
     void Application::setupDebuggerMessenger()
@@ -197,6 +205,39 @@ namespace vmce
             extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
 
         return extensions;
+    }
+
+    void Application::pickPhysicalDevice()
+    {
+        uint32_t device_count = 0;
+        vkEnumeratePhysicalDevices(_instance, &device_count, nullptr);
+
+        if (!device_count)
+            throw std::runtime_error("GPU with vulkan supported not found");
+
+        std::vector<VkPhysicalDevice> devices = std::vector<VkPhysicalDevice>(device_count);
+        vkEnumeratePhysicalDevices(_instance, &device_count, devices.data());
+
+        for (const VkPhysicalDevice &device: devices) {
+            if (isDeviceSuitable(device)) {
+                _physical_device = device;
+                break;
+            }
+        }
+
+        if (_physical_device == VK_NULL_HANDLE)
+            throw std::runtime_error("No GPU can execute this program");
+    }
+
+    bool Application::isDeviceSuitable(VkPhysicalDevice device)
+    {
+        VkPhysicalDeviceProperties device_properties = VkPhysicalDeviceProperties();
+        VkPhysicalDeviceFeatures device_features = VkPhysicalDeviceFeatures();
+
+        vkGetPhysicalDeviceProperties(device, &device_properties);
+        vkGetPhysicalDeviceFeatures(device, &device_features);
+
+        return device_properties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU && device_features.geometryShader;
     }
 
     VKAPI_ATTR VkBool32 VKAPI_CALL Application::debugCallback(

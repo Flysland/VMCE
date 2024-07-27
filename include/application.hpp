@@ -31,10 +31,14 @@ namespace vmce
     {
         friend int ::main();
 
+        public:
+            Application();
+
         private:
             GLFWwindow *_window;
             VkInstance _instance;
             VkDebugUtilsMessengerEXT _callback;
+            VkPhysicalDevice _physical_device;
 
             void run();
             void cleanup();
@@ -48,6 +52,8 @@ namespace vmce
             void populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT &create_info);
             bool checkValidationLayersSupport();
             std::vector<const char *> getRequiredExtensions();
+            void pickPhysicalDevice();
+            bool isDeviceSuitable(VkPhysicalDevice device);
 
             static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
                 VkDebugUtilsMessageSeverityFlagBitsEXT message_severity,
