@@ -18,3 +18,7 @@ cmake --build ./build/
 The compilation generate 2 folders:
 - ``bin`` that contain all binaries compiled
 - ``lib`` that contain all libraries compiled
+
+## Requirements
+To compile the VMCE library you need to have theses libraries
+- [Vulkan](https://www.vulkan.org/)
