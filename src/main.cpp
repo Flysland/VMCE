@@ -11,9 +11,12 @@ int main()
 {
     vmce::Application &app = vmce::Application::getInstance();
 
-    if (app.init())
+    try {
         app.run();
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
 
-    app.terminate();
-    return 0;
+    return EXIT_SUCCESS;
 }

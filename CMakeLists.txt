@@ -33,7 +33,7 @@ include_directories(${INCLUDE_PATH})
 add_library(vmce SHARED ${SRC_FILES})
 target_link_libraries(vmce Vulkan::Vulkan glfw)
 
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -g3")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -DVMCE_DEBUG -g3")
 
 # Compile tests
 add_subdirectory(tests)
